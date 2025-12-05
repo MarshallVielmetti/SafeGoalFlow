@@ -42,6 +42,7 @@ class GoalFlowConfig:
     only_perception: bool=False
     v99_pretrained_path: str=''
     agent_loss: bool=True
+    safety_ego_radius: float = 2.5  # ego vehicle radius for safety barrier
 
     trajectory_sampling: TrajectorySampling = TrajectorySampling(
         time_horizon=5.5, interval_length=0.5

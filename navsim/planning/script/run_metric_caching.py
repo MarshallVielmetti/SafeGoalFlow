@@ -14,7 +14,7 @@ CONFIG_PATH = "config/metric_caching"
 CONFIG_NAME = "default_metric_caching"
 
 
-@hydra.main(config_path=CONFIG_PATH, config_name=CONFIG_NAME)
+@hydra.main(version_base="1.1", config_path=CONFIG_PATH, config_name=CONFIG_NAME)
 def main(cfg: DictConfig) -> None:
     """
     Main entrypoint for training/validation experiments.

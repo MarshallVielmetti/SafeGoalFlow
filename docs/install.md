@@ -2,6 +2,23 @@
 
 Follow the steps below to set up the GoalFlow environment.
 
+## System Requirements
+```text
+python >= python3.10
+cuda13
+```
+
+## Run Install Scripts
+```
+sh ./download/download_maps.sh
+sh ./download/download_navtrain.sh
+sh ./download/download_test.sh
+```
+
+
+## Setup Navsim
+Follow the directions for [First Time Setup](https://github.com/autonomousvision/navsim/blob/main/docs/install.md)
+
 ### 1. Clone the GoalFlow Repository
 
 First, clone the repository and create a data directory:
@@ -23,6 +40,8 @@ pip install -r requirements.txt
 pip install -e nuplan-devkit
 pip install -e .
 ```
+
+Most likely, installing the requirements.txt file directly will **not work** due to an incompatability in the cuda version specifier. TODO Verify that removing the cuda version specifier from the packages will fix it.
 
 ### 2. Prepare the Cache
 In NAVSIM, it is recommended to store features and metrics as a cache to speed up training and evaluation.

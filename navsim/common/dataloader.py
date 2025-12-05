@@ -138,9 +138,20 @@ class MetricCacheLoader:
 
     def _load_metric_cache_paths(self, cache_path: Path) -> Dict[str, Path]:
         metadata_dir = cache_path / "metadata"
-        metadata_file = [file for file in metadata_dir.iterdir() if ".csv" in str(file)][0]
+        if not metadata_dir.exists() or not metadata_dir.is_dir():
+            raise FileNotFoundError(
+                f"Metric cache metadata directory not found: {metadata_dir}. "
+                "Set the correct `metric_cache_path` or run the metric caching step first."
+            )
+        csv_files = [file for file in metadata_dir.iterdir() if ".csv" in str(file)]
+        if len(csv_files) == 0:
+            raise FileNotFoundError(
+                f"No metadata CSV found in metric cache directory: {metadata_dir}. "
+                "Ensure metric cache was created and contains a metadata CSV."
+            )
+        metadata_file = csv_files[0]
         with open(str(metadata_file), "r") as f:
-            cache_paths=f.read().splitlines()[1:]
+            cache_paths = f.read().splitlines()[1:]
         metric_cache_dict = {
             cache_path.split("/")[-2]: cache_path
             for cache_path in cache_paths

@@ -9,7 +9,7 @@ GOAL_POINT_SCORES=$GOALFLOW_DIR/data/goal_point_scores
 
 
 python ./navsim/planning/script/run_generate_trajs.py \
-agent=goalflow_agent_traj \
+agent=goalflow_agent_traj_bf \
 experiment_name=a_test_release \
 scene_filter=navtest \
 split=test \
@@ -40,3 +40,4 @@ agent.config.tf_d_model=1024 \
 agent.config.infer_steps=5 \
 agent.config.anchor_size=384 \
 agent.checkpoint_path=$CHECKPOINT_PATH
+# +trainer.params.limit_test_batches=100

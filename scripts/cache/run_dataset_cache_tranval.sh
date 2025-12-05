@@ -1,8 +1,11 @@
 # export LD_LIBRARY_PATH="/usr/local/cuda/lib64"
 # The trajectory_sampling.time_horizon in trainval is 5.5 (default)
-CACHE_TO_SAVE='' #set your feature cache path to save
+# CACHE_TO_SAVE='' #set your feature cache path to save
+CACHE_TO_SAVE=$NAVSIM_EXP_ROOT/training_cache
 
-python $NAVSIM_DEVKIT_ROOT/navsim/planning/script/run_dataset_caching.py \
+echo $CACHE_TO_SAVE
+
+python $NAVSIM_DEVKIT_ROOT/planning/script/run_dataset_caching.py \
 agent=goalflow_agent_traj \
 experiment_name=a_goalflow_trainval_cache \
 cache_path=$CACHE_TO_SAVE \

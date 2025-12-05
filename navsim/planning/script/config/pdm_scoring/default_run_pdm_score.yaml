@@ -6,10 +6,12 @@ hydra:
     - pkg://navsim.planning.script.config.common 
 
 defaults:
+  - _self_
   - default_common
   - default_evaluation
   - default_scoring_parameters
   - agent: constant_velocity_agent
 
-metric_cache_path: ${oc.env:NAVSIM_EXP_ROOT}/metric_cache # path to metric cache
+# Use NAVSIM_EXP_ROOT if provided, otherwise fallback to $HOME/.goalflow
+metric_cache_path: ${oc.env:NAVSIM_EXP_ROOT,${oc.env:HOME}/.goalflow}/metric_cache # path to metric cache
 dac_label_path: null

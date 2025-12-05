@@ -124,7 +124,7 @@ def main(cfg: DictConfig) -> None:
 
     print(f"Val Data: {val_data}")
     logger.info("Building Datasets")
-    
+
     val_dataloader = DataLoader(val_data, **cfg.dataloader.params, shuffle=False,collate_fn=limit_len_collate_fn)
 
     print(f"len val_dataloader: {len(val_dataloader)}")

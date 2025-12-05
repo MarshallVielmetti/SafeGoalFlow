@@ -54,7 +54,7 @@ def cache_features(args: List[Dict[str, Union[List[str], DictConfig]]]) -> List[
     return []
 
 
-@hydra.main(config_path=CONFIG_PATH, config_name=CONFIG_NAME)
+@hydra.main(config_path=CONFIG_PATH, config_name=CONFIG_NAME, version_base="1.1")
 def main(cfg: DictConfig) -> None:
     logger.info("Global Seed set to 0")
     pl.seed_everything(0, workers=True)
@@ -66,6 +66,10 @@ def main(cfg: DictConfig) -> None:
     scene_filter: SceneFilter = instantiate(cfg.scene_filter)
     data_path = Path(cfg.navsim_log_path)
     sensor_blobs_path = Path(cfg.sensor_blobs_path)
+
+    logger.info(f"DataPath: {data_path}")
+    logger.info(f"DataPath: {sensor_blobs_path}")
+
     scene_loader = SceneLoader(
         sensor_blobs_path=sensor_blobs_path,
         data_path=data_path,

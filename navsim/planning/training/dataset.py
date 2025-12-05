@@ -65,10 +65,14 @@ class CacheOnlyDataset(torch.utils.data.Dataset):
         assert Path(cache_path).is_dir(), f"Cache path {cache_path} does not exist!"
         self._cache_path = Path(cache_path)
 
+        print(f"CacheOnlyDataset: Path {cache_path}")
+
         if log_names is not None:
             self.log_names = [Path(l) for l in log_names if (self._cache_path / l).is_dir()]
         else:
             self.log_names = [l for l in self._cache_path.iterdir()]
+
+        print(f"Log_Names: {self.log_names}")
 
         self._feature_builders = feature_builders
         self._target_builders = target_builders
@@ -94,15 +98,18 @@ class CacheOnlyDataset(torch.utils.data.Dataset):
         target_builders: List[AbstractTargetBuilder],
         log_names: List[Path],
     ) -> Dict[str, Path]:
+        print("## Load Valid Caches ##")
 
         valid_cache_paths: Dict[str, Path] = {}
 
         for log_name in tqdm(log_names, desc="Loading Valid Caches"):
             log_path = cache_path / log_name
+            print(f"\tChecking Log Path: {log_path}")
             for token_path in log_path.iterdir():
                 found_caches: List[bool] = []
                 for builder in feature_builders + target_builders:
                     data_dict_path = token_path / (builder.get_unique_name() + ".gz")
+                    print(f"\t\tChecking Token Path: {data_dict_path}")
                     found_caches.append(data_dict_path.is_file())
                 if all(found_caches):
                     valid_cache_paths[token_path.name] = token_path

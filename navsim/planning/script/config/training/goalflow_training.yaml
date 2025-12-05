@@ -12,6 +12,7 @@ defaults:
   - default_evaluation
   - default_train_val_test_log_split
   - agent: goalflow_agent_traj
+  - _self_
 
 split: trainval
 cache_path: ${oc.env:NAVSIM_EXP_ROOT}/training_cache_trainval
